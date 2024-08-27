@@ -11,4 +11,11 @@
 
 
 # 快捷键习惯
-- esc nmap jj
+- i -> esc nmap jj
+
+
+# Install packer 
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+
