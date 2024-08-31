@@ -8,10 +8,18 @@
 
 
 # 插件习惯
+- coc
+- formmater
+- outline
+- onedark
+- nvim-treesitter
+
+
 
 
 # 快捷键习惯
 - i -> esc nmap jj
+- <leader> -> space
 
 
 # Install packer 
