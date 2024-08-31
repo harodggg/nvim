@@ -14,7 +14,13 @@
         "stopOnEntry": true,
         "console": "externalTerminal",
         "debugOptions": [],
-        "program": "main.py"
+        "program": "main.py",
+        "breakpointers": {
+          "exception": {
+            "py_throw": "Y",
+            "py_catch": "N"
+          }
+        }
       },
       "breakpointers": {
         "exception": {
