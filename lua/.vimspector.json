@@ -5,6 +5,7 @@
       "filetypes": [
         "python"
       ],
+      "default": true,
       "configuration": {
         "name": "test: Launch",
         "type": "python",
@@ -14,18 +15,13 @@
         "stopOnEntry": true,
         "console": "externalTerminal",
         "debugOptions": [],
-        "program": "main.py",
-        "breakpointers": {
-          "exception": {
-            "py_throw": "Y",
-            "py_catch": "N"
-          }
-        }
+        "program": "main.py"
       },
-      "breakpointers": {
+      "breakpoints": {
         "exception": {
-          "py_throw": "Y",
-          "py_catch": "N"
+          "raised": "Y",
+          "uncaught": "Y",
+          "userUnhandled": "Y"
         }
       }
     }
