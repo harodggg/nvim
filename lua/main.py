@@ -5,8 +5,8 @@ class main:
     # ljfd
 
 
-gg="ljkd"
-bb="kjf"
+gg = "ljkd"
+bb = "kjf"
 
 print("guo hongjie good")
 
@@ -15,4 +15,6 @@ print("hello world")
 print("hello world")
 
 
-main()
+
+
+

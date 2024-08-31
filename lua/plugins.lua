@@ -193,19 +193,9 @@ require("formatter").setup({
 			end,
 		},
 		python = {
-			require("formatter.filetypes.python").autoflake,
-			function()
-				return {
-					exe = "black",
-					args = {
-						"-q",
-						"--stdin-filename",
-						util.escape_path(util.get_current_buffer_file_name()),
-						"-",
-					},
-					stdin = true,
-				}
-			end,
+			require("formatter.filetypes.python").autopep8,
+			require("formatter.filetypes.python").autopep8(),
+
 		},
 		rust = {
 			require("formatter.filetypes.rust").rustfmt,
@@ -227,18 +217,29 @@ require("formatter").setup({
 				}
 			end,
 		},
+		markdown = {
+			require("formatter.filetypes.markdown").denofmt,
+			require("formatter.filetypes.markdown").denofmt(),
+		},
+
+		toml = {
+			require("formatter.filetypes.toml").taplo,
+			require("formatter.filetypes.toml").taplo(),
+		},
+
+		yaml = {
+			require("formatter.filetypes.yaml").yamlfmt,
+			require("formatter.filetypes.yaml").yamlfmt(),
+		},
+
+		sh = {
+			require("formatter.filetypes.sh").shfmt,
+			require("formatter.filetypes.sh").shfmt(),
+		},
 
 		json = {
 			require("formatter.filetypes.json").jq,
-			function()
-				return {
-					exe = "jq",
-					args = {
-						".",
-					},
-					stdin = true,
-				}
-			end,
+			require("formatter.filetypes.json").jq(),
 		},
 		["*"] = {
 			require("formatter.filetypes.any").remove_trailing_whitespace,
