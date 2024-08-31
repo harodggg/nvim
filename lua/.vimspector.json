@@ -1,0 +1,27 @@
+{
+  "configurations": {
+    "test: Launch": {
+      "adapter": "debugpy",
+      "filetypes": [
+        "python"
+      ],
+      "configuration": {
+        "name": "test: Launch",
+        "type": "python",
+        "request": "launch",
+        "cwd": "./",
+        "python": "/usr/bin/python3",
+        "stopOnEntry": true,
+        "console": "externalTerminal",
+        "debugOptions": [],
+        "program": "main.py"
+      },
+      "breakpointers": {
+        "exception": {
+          "py_throw": "Y",
+          "py_catch": "N"
+        }
+      }
+    }
+  }
+}

@@ -18,8 +18,8 @@ bootstrap_pckr()
 
 require("pckr").add({
 	{ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
-    { "puremourning/vimspector"},
-    {"tpope/vim-fugitive"},
+	{ "puremourning/vimspector" },
+	{ "tpope/vim-fugitive" },
 	{ "navarasu/onedark.nvim" },
 	{
 		"folke/trouble.nvim",
@@ -32,22 +32,12 @@ require("pckr").add({
 		-- or                            , branch = '0.1.x',
 		requires = { { "nvim-lua/plenary.nvim" } },
 	},
+
 	{
 		"rmagatti/goto-preview",
-		-- lazy = true,
 		config = function()
 			require("goto-preview").setup({
-				width = 120, -- Width of the floating window
-				height = 25, -- Height of the floating window
-				default_mappings = true, -- Bind default mappings
-				debug = false, -- Print debug information
-				opacity = nil, -- 0-100 opacity level of the floating window where 100 is fully transparent.
-				post_open_hook = nil, -- A function taking two arguments, a buffer and a window to be ran as a hook.
-				-- You can use "default_mappings = true" setup option
-				-- Or explicitly set keybindings
-				vim.cmd("nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>"),
-				vim.cmd("nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>"),
-				vim.cmd("nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>"),
+				default_mappings = true,
 			})
 		end,
 	},
@@ -181,8 +171,10 @@ require("formatter").setup({
 	logging = true,
 	log_level = vim.log.levels.WARN,
 	filetype = {
+
 		lua = {
 			require("formatter.filetypes.lua").stylua,
+
 			function()
 				if util.get_current_buffer_file_name() == "special.lua" then
 					return nil
@@ -200,13 +192,61 @@ require("formatter").setup({
 				}
 			end,
 		},
+		python = {
+			require("formatter.filetypes.python").autoflake,
+			function()
+				return {
+					exe = "black",
+					args = {
+						"-q",
+						"--stdin-filename",
+						util.escape_path(util.get_current_buffer_file_name()),
+						"-",
+					},
+					stdin = true,
+				}
+			end,
+		},
+		rust = {
+			require("formatter.filetypes.rust").rustfmt,
+			function()
+				return {
+					exe = "rustfmt",
+					args = { "--edition 2021" },
+					stdin = true,
+				}
+			end,
+		},
+		terraform = {
+			require("formatter.filetypes.terraform").terraformfmt,
+			function()
+				return {
+					exe = "terraform",
+					args = { "fmt", "-" },
+					stdin = true,
+				}
+			end,
+		},
+
+		json = {
+			require("formatter.filetypes.json").jq,
+			function()
+				return {
+					exe = "jq",
+					args = {
+						".",
+					},
+					stdin = true,
+				}
+			end,
+		},
 		["*"] = {
 			require("formatter.filetypes.any").remove_trailing_whitespace,
 		},
 	},
 })
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
+vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
