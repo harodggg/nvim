@@ -1,20 +1,24 @@
 class main:
     def __init__(self):
         print("hel")
-
+    #
     # ljfd
 
 
-gg = "ljkd"
-bb = "kjf"
+# gg = "ljkd"
+# bb = "kjf"
 
 
 bb = "ll"
+{}
 
-bb = "gg"
+aa = [[[[]]]]
+# {{{{{{{}}}}}}}
+# # print("guo hongjie good")
+{}
 
-print("guo hongjie good")
-
+{{{{{{{{}}}}}}}}
+print("hello world")
+#
 print("hello world")
 
-print("hello world")

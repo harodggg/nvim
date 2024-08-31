@@ -1,0 +1,3 @@
+struct Bb {
+    aa: str,
+}

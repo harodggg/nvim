@@ -20,6 +20,7 @@ require("pckr").add({
 	{ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
 	{ "puremourning/vimspector" },
 	{ "tpope/vim-fugitive" },
+	{ "HiPhish/rainbow-delimiters.nvim" },
 	{ "navarasu/onedark.nvim" },
 	{
 		"folke/trouble.nvim",
@@ -71,6 +72,12 @@ require("pckr").add({
 		event = "BufRead",
 		config = function()
 			require("lsp_signature").on_attach()
+		end,
+	},
+	{
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup()
 		end,
 	},
 
@@ -195,7 +202,6 @@ require("formatter").setup({
 		python = {
 			require("formatter.filetypes.python").autopep8,
 			require("formatter.filetypes.python").autopep8(),
-
 		},
 		rust = {
 			require("formatter.filetypes.rust").rustfmt,
@@ -244,6 +250,26 @@ require("formatter").setup({
 		["*"] = {
 			require("formatter.filetypes.any").remove_trailing_whitespace,
 		},
+	},
+})
+
+require("rainbow-delimiters.setup").setup({
+	query = {
+		[""] = "rainbow-delimiters",
+		lua = "rainbow-blocks",
+	},
+	priority = {
+		[""] = 110,
+		lua = 210,
+	},
+	highlight = {
+		"RainbowDelimiterRed",
+		"RainbowDelimiterYellow",
+		"RainbowDelimiterBlue",
+		"RainbowDelimiterOrange",
+		"RainbowDelimiterGreen",
+		"RainbowDelimiterViolet",
+		"RainbowDelimiterCyan",
 	},
 })
 local builtin = require("telescope.builtin")
