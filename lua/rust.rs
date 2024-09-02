@@ -1,3 +1,0 @@
-struct Bb {
-    aa: str,
-}

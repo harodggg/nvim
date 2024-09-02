@@ -18,6 +18,18 @@ bootstrap_pckr()
 
 require("pckr").add({
 	{ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
+	{
+		"HakonHarnes/img-clip.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- add options here
+			-- or leave it empty to use the default settings
+		},
+		keys = {
+			-- suggested keymap
+			{ "zi", ":PasteImage<cr>", desc = "Paste image from system clipboard" },
+		},
+	},
 	{ "puremourning/vimspector" },
 	{ "tpope/vim-fugitive" },
 	{ "navarasu/onedark.nvim" },
@@ -91,10 +103,23 @@ require("pckr").add({
 	},
 })
 
+-- HACK: temporary fix to ensure rainbow delimiters are highlighted in real-time
+vim.api.nvim_create_autocmd("BufRead", {
+	desc = "Ensure treesitter is initialized???",
+	callback = function()
+		-- if this fails then it means no parser is available for current buffer
+		if pcall(vim.treesitter.start) then
+			vim.treesitter.start()
+		end
+	end,
+})
 require("nvim-treesitter/configs").setup({
 	ensure_installed = { "markdown", "python", "rust", "javascript", "bash", "lua", "vim", "c" },
+	sync_install = true,
+	auto_install = true,
+
 	highlight = {
-		enable = true,
+		enable = false,
 		additional_vim_regex_highlighting = false,
 	},
 	indent = {
@@ -145,7 +170,7 @@ require("onedark").setup({
 	-- Options are italic, bold, underline, none
 	-- You can configure multiple style with comma separated, For e.g., keywords = 'italic,bold'
 	code_style = {
-		comments = "italic",
+		comments = "bold",
 		keywords = "italic",
 		functions = "italic",
 		strings = "italic",
@@ -255,6 +280,36 @@ require("formatter").setup({
 	},
 })
 
+-- rainbow
+-- This module contains a number of default definitions
+local rainbow_delimiters = require("rainbow-delimiters")
+
+---@type rainbow_delimiters.config
+vim.g.rainbow_delimiters = {
+	strategy = {
+		[""] = rainbow_delimiters.strategy["global"],
+		vim = rainbow_delimiters.strategy["local"],
+	},
+	query = {
+		[""] = "rainbow-delimiters",
+
+		lua = "rainbow-blocks",
+	},
+	priority = {
+		[""] = 110,
+		lua = 210,
+	},
+	highlight = {
+		"RainbowDelimiterRed",
+		"RainbowDelimiterYellow",
+		"RainbowDelimiterBlue",
+		"RainbowDelimiterOrange",
+		"RainbowDelimiterGreen",
+		"RainbowDelimiterViolet",
+		"RainbowDelimiterCyan",
+	},
+}
+
 --- indent
 local highlight = {
 	"RainbowRed",
@@ -266,6 +321,7 @@ local highlight = {
 	"RainbowCyan",
 }
 local hooks = require("ibl.hooks")
+
 -- create the highlight groups in the highlight setup hook, so they are reset
 -- every time the colorscheme changes
 hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
@@ -288,3 +344,5 @@ vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+vim.keymap.set("n", "<leader>m", ":PasteImage<cr>", {})
+
