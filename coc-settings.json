@@ -3,7 +3,12 @@
     "command": "bash-language-server",
     "args": ["start"],
     "filetypes": ["sh"]
-  }
+  },
+  {
+    "terraform": {
+      "command": "terraform-ls",
+      "filetypes": ["terraform"]
+    }
 }
-
+}
 

@@ -18,6 +18,7 @@ bootstrap_pckr()
 
 require("pckr").add({
 	{ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
+    {"yaocccc/nvim-hlchunk"},
 	{
 		"HakonHarnes/img-clip.nvim",
 		event = "VeryLazy",
@@ -292,12 +293,16 @@ vim.g.rainbow_delimiters = {
 	},
 	query = {
 		[""] = "rainbow-delimiters",
-
 		lua = "rainbow-blocks",
+		py = "rainbow-blocks",
+		rs = "rainbow-delimiters",
+
 	},
 	priority = {
 		[""] = 110,
 		lua = 210,
+        py = 210,
+        rs = 210,
 	},
 	highlight = {
 		"RainbowDelimiterRed",
