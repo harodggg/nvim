@@ -1,6 +1,5 @@
 local function bootstrap_pckr()
 	local pckr_path = vim.fn.stdpath("data") .. "/pckr/pckr.nvim"
-
 	if not vim.uv.fs_stat(pckr_path) then
 		vim.fn.system({
 			"git",
@@ -18,7 +17,58 @@ bootstrap_pckr()
 
 require("pckr").add({
 	{ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
-    {"yaocccc/nvim-hlchunk"},
+	{
+		"akinsho/toggleterm.nvim",
+		config = function()
+			require("toggleterm").setup({
+				size = 20,
+				open_mapping = [[<c-\>]],
+				direction = "float",
+				float_opts = {
+					border = "curved",
+				},
+			})
+
+			function _G.set_terminal_keymaps()
+				local opts = { buffer = 0 }
+				vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
+			end
+
+			-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+			vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+		end,
+		keys = [[<c-\>]],
+		cmd = "ToggleTerm",
+	},
+	{
+		"tpope/vim-surround",
+		event = { "CursorMoved", "CursorMovedI" },
+	},
+	{
+		"iamcco/markdown-preview.nvim",
+		build = function()
+			vim.fn["mkdp#util#install"]()
+		end,
+		ft = "markdown",
+		config = function()
+			vim.g.mkdp_filetypes = { "markdown" }
+			vim.cmd([[let g:mkdp_browser = 'firefox']])
+		end,
+		keys = {
+			{
+				"<leader>z",
+				":MarkdownPreviewToggle<CR>",
+				mode = "",
+				desc = "[M]arkdown Preview",
+			},
+		},
+	},
+	{
+		"farmergreg/vim-lastplace",
+		event = { "BufReadPre", "BufNewFile" },
+	},
+	{ "akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons" },
+	{ "yaocccc/nvim-hlchunk" },
 	{
 		"HakonHarnes/img-clip.nvim",
 		event = "VeryLazy",
@@ -296,13 +346,12 @@ vim.g.rainbow_delimiters = {
 		lua = "rainbow-blocks",
 		py = "rainbow-blocks",
 		rs = "rainbow-delimiters",
-
 	},
 	priority = {
 		[""] = 110,
 		lua = 210,
-        py = 210,
-        rs = 210,
+		py = 210,
+		rs = 210,
 	},
 	highlight = {
 		"RainbowDelimiterRed",
@@ -350,4 +399,3 @@ vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 vim.keymap.set("n", "<leader>m", ":PasteImage<cr>", {})
-
