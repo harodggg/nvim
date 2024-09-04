@@ -17,6 +17,15 @@ bootstrap_pckr()
 
 require("pckr").add({
 	{ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
+    {
+	"Pocco81/auto-save.nvim",
+	config = function()
+		 require("auto-save").setup {
+			-- your config goes here
+			-- or just leave it empty :)
+		 }
+	end,
+    } ,
 	{
 		"akinsho/toggleterm.nvim",
 		config = function()
@@ -273,7 +282,7 @@ require("formatter").setup({
 						"--",
 						"-",
 					},
-					stdin = true,
+					stdin = false,
 				}
 			end,
 		},
@@ -287,7 +296,7 @@ require("formatter").setup({
 				return {
 					exe = "rustfmt",
 					args = { "--edition 2021" },
-					stdin = true,
+					stdin = false,
 				}
 			end,
 		},
@@ -297,7 +306,7 @@ require("formatter").setup({
 				return {
 					exe = "terraform",
 					args = { "fmt", "-" },
-					stdin = true,
+					stdin = false,
 				}
 			end,
 		},
