@@ -1,17 +1,50 @@
 return {
-	-- 1. Kanagawa 主题：提供深沉、护眼的背景
 	{
-		"rebelot/kanagawa.nvim",
-		lazy = false, -- 主题不应延迟加载
-		priority = 1000, -- 确保最高优先级
+		"sainnhe/sonokai",
+		lazy = false, -- 主题必须在启动时加载
+		priority = 1000, -- 确保在其他 UI 插件之前渲染
 		config = function()
-			require("kanagawa").setup({
-				theme = "dragon", -- 可选 "wave", "dragon", "lotus"
-				background = { dark = "dragon", light = "dragon" },
-			})
-			vim.cmd("colorscheme kanagawa") -- 正式启用
+			-- 在加载主题前设置配置变量
+			-- 'shusia' (默认), 'maia', 'espresso', 'atlantis', 'andromeda'
+			vim.g.sonokai_style = "atlantis"
+
+			-- 允许透明背景（如果你喜欢配合终端透明度）
+			-- vim.g.sonokai_transparent_background = 1
+
+			-- 更好的诊断颜色（配合 LSP）
+			vim.g.sonokai_diagnostic_text_highlight = 1
+			vim.g.sonokai_diagnostic_line_highlight = 1
+
+			-- 正式启用主题
+			vim.cmd([[colorscheme sonokai]])
 		end,
 	},
+	--	{
+	--		"catppuccin/nvim",
+	--		name = "catppuccin",
+	--		priority = 1000,
+	--
+	--		config = function()
+	--			require("catppuccin").setup({
+	--				theme = "",
+	--			})
+	--			vim.cmd("colorscheme catppuccin")
+	--		end,
+	--	},
+
+	--	-- 1. Kanagawa 主题：提供深沉、护眼的背景
+	--	{
+	--		"rebelot/kanagawa.nvim",
+	--		lazy = false, -- 主题不应延迟加载
+	--		priority = 1000, -- 确保最高优先级
+	--		config = function()
+	--			require("kanagawa").setup({
+	--				theme = "dragon", -- 可选 "wave", "dragon", "lotus"
+	--				background = { dark = "dragon", light = "dragon" },
+	--			})
+	--			vim.cmd("colorscheme kanagawa") -- 正式启用
+	--		end,
+	--	},
 
 	-- 2. Noice.nvim：重塑命令行、搜索栏和通知系统
 	{
