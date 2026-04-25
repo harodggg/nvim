@@ -106,7 +106,7 @@ return {
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
 		opts = {
-			indent = { char = "│" },
+			indent = { char = "|" },
 			scope = { enabled = true, show_start = true }, -- 高亮当前代码块的作用域
 		},
 	},
